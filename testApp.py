@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from flask_pymongo import PyMongo
 import google.generativeai as genai
 
-genai.configure(api_key="AIzaSyDKvJBGxmhAYjC7O5stDTBHeexdLT6VlMo")
+genai.configure(api_key="")
 app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/chatDatabase"
 db = PyMongo(app).db
@@ -14,6 +14,7 @@ def home():
     return render_template('index.html')
 
 @app.route('/chat', methods=['POST'])
+
 def chat():
     user_input = request.json.get("input", "").strip()
     

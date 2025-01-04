@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/chatDatabase"
 db = PyMongo(app).db
 
-genai.configure(api_key="AIzaSyDKvJBGxmhAYjC7O5stDTBHeexdLT6VlMo")
+genai.configure(api_key="")
 model = genai.GenerativeModel(model_name='gemini-1.5-flash')
 
 @app.route('/')
