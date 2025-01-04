@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    input, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <div id="login-section">
+      <input type="text" id="login-username" placeholder="Username" required />
+      <input type="password" id="login-password" placeholder="Password" required />
+      <button onclick="login()">Login</button>
+      <p class="error" id="login-error"></p>
+    </div>
+    <hr>
+    <h2>Register</h2>
+    <div id="register-section">
+      <input type="text" id="register-username" placeholder="Username" required />
+      <input type="password" id="register-password" placeholder="Password" required />
+      <button onclick="register()">Register</button>
+      <p class="error" id="register-error"></p>
+    </div>
+  </div>
+
+  <script>
+    const apiUrl = 'http://127.0.0.1:5000';
+
+    // Login function
+    async function login() {
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+
+      const response = await fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const result = await response.json();
+
+      if (response.status === 200) {
+        localStorage.setItem('user_id', result.user_id);
+        window.location.href = 'chat.html';
+      } else {
+        document.getElementById('login-error').textContent = result.error;
+      }
+    }
+
+    // Register function
+    async function register() {
+      const username = document.getElementById('register-username').value;
+      const password = document.getElementById('register-password').value;
+
+      const response = await fetch(`${apiUrl}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const result = await response.json();
+
+      if (response.status === 201) {
+        alert('Registration successful! Please login.');
+      } else {
+        document.getElementById('register-error').textContent = result.error;
+      }
+    }
+  </script>
+</body>
+</html>
