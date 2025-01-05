@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_pymongo import PyMongo
+from flask_cors import CORS 
 from flask_jwt_extended import JWTManager
 from config import Config
 from services.ai_service import AIService
@@ -12,12 +13,14 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
+    CORS(app)
+
     # Initialize extensions
     mongo = PyMongo(app)
     jwt = JWTManager(app)
     
     # Initialize services
-    ai_service = AIService(api_key="") 
+    ai_service = AIService(api_key="AIzaSyDKvJBGxmhAYjC7O5stDTBHeexdLT6VlMo") 
     message_service = MessageService(mongo.db, ai_service)
 
     # Register blueprints
