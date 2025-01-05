@@ -17,7 +17,7 @@ def create_app():
     jwt = JWTManager(app)
     
     # Initialize services
-    ai_service = AIService(api_key="")  # Add your API key
+    ai_service = AIService(api_key="") 
     message_service = MessageService(mongo.db, ai_service)
 
     # Register blueprints
