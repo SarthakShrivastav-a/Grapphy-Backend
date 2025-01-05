@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="chat-dashboard">
+    <h2>Welcome, {{ username }}</h2>
+    <button id="newChatBtn">New Chat</button>
+    <div id="chatsList">
+        <h3>Your Chats</h3>
+        <ul id="chatItems"></ul>
+    </div>
+    <form id="newChatForm" style="display:none;">
+        <label for="chatTopic">Chat Topic:</label>
+        <input type="text" id="chatTopic" name="chatTopic" required>
+        <button type="submit">Create Chat</button>
+    </form>
+</div>
+{% endblock %}
