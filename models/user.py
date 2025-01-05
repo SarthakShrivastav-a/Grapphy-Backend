@@ -3,10 +3,12 @@ from bson.objectid import ObjectId
 import bcrypt
 
 class User:
-    def __init__(self, username, password=None):
+    def __init__(self, username=None, password=None, google_id=None, email=None):
         self.username = username
         self.user_id = str(ObjectId())
         self.created_at = datetime.utcnow().isoformat()
+        self.google_id = google_id
+        self.email = email
         if password:
             self.password_hash = self._hash_password(password)
 
@@ -20,6 +22,8 @@ class User:
         return {
             "user_id": self.user_id,
             "username": self.username,
-            "password_hash": self.password_hash,
+            "password_hash": getattr(self, "password_hash", None),
+            "google_id": self.google_id,
+            "email": self.email,
             "created_at": self.created_at
         }
