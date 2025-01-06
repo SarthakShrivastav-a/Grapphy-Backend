@@ -2,7 +2,7 @@ from datetime import datetime
 from bson.objectid import ObjectId
 
 class Chat:
-    def __init__(self, user_id, img_url="",topic="New Chat"):
+    def __init__(self, user_id,topic="New Chat", img_url=""):
         self.chat_id = str(ObjectId())
         self.user_id = user_id
         self.img_url = img_url

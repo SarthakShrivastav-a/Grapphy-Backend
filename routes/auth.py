@@ -3,6 +3,7 @@ from flask_jwt_extended import create_access_token
 from models.user import User
 from google.oauth2 import id_token
 from google.auth.transport import requests
+import os
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -54,7 +55,7 @@ def init_auth_routes(db):
 
         try:
             # Verify the token with Google
-            CLIENT_ID = "690904482528-n6eh7jf42cbui0l33m0l7gjjn5j9vn90.apps.googleusercontent.com"  # Replace with your actual Google Client ID
+            CLIENT_ID = os.getenv('CLIENT_ID')  # Replace with your actual Google Client ID
             id_info = id_token.verify_oauth2_token(token, requests.Request(), CLIENT_ID)
 
             email = id_info.get("email")
